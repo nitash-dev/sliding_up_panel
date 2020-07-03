@@ -629,6 +629,8 @@ class PanelController{
 
   ValueChanged<double> get animationListener => _panelState.animationListener;
 
+  AnimationController get animationController => _panelState._ac;
+
   /// Determine if the panelController is attached to an instance
   /// of the SlidingUpPanel (this property must return true before any other
   /// functions can be used)
