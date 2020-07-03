@@ -222,8 +222,6 @@ class SlidingUpPanel extends StatefulWidget {
 }
 
 class _SlidingUpPanelState extends State<SlidingUpPanel> with SingleTickerProviderStateMixin{
-  ValueChanged<double> animationListener;
-
   AnimationController _ac;
 
   ScrollController _sc;
@@ -246,8 +244,6 @@ class _SlidingUpPanelState extends State<SlidingUpPanel> with SingleTickerProvid
       if(widget.onPanelOpened != null && _ac.value == 1.0) widget.onPanelOpened();
 
       if(widget.onPanelClosed != null && _ac.value == 0.0) widget.onPanelClosed();
-
-      animationListener(_ac.value);
     });
 
     // prevent the panel content from being scrolled only if the widget is
@@ -627,8 +623,7 @@ class PanelController{
     this._panelState = panelState;
   }
 
-  ValueChanged<double> get animationListener => _panelState.animationListener;
-
+  /// Returns the used animationController
   AnimationController get animationController => _panelState._ac;
 
   /// Determine if the panelController is attached to an instance
