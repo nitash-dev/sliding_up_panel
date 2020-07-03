@@ -6,6 +6,7 @@ Copyright: © 2020, Akshath Jain. All rights reserved.
 Licensing: More information can be found here: https://github.com/akshathjain/sliding_up_panel/blob/master/LICENSE
 */
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
@@ -221,6 +222,7 @@ class SlidingUpPanel extends StatefulWidget {
 }
 
 class _SlidingUpPanelState extends State<SlidingUpPanel> with SingleTickerProviderStateMixin{
+  ValueChanged<double> animationListener;
 
   AnimationController _ac;
 
@@ -244,6 +246,8 @@ class _SlidingUpPanelState extends State<SlidingUpPanel> with SingleTickerProvid
       if(widget.onPanelOpened != null && _ac.value == 1.0) widget.onPanelOpened();
 
       if(widget.onPanelClosed != null && _ac.value == 0.0) widget.onPanelClosed();
+
+      animationListener(_ac.value);
     });
 
     // prevent the panel content from being scrolled only if the widget is
@@ -622,6 +626,8 @@ class PanelController{
   void _addState(_SlidingUpPanelState panelState){
     this._panelState = panelState;
   }
+
+  ValueChanged<double> animationListener() => _panelState.animationListener;
 
   /// Determine if the panelController is attached to an instance
   /// of the SlidingUpPanel (this property must return true before any other
